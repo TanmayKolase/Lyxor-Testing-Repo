@@ -1,0 +1,20 @@
+{
+  "name": "lyxor-testing-auth-api",
+  "version": "1.0.0",
+  "description": "Demo Node.js + Express auth API with intentional security and design issues for testing.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0",
+    "mysql2": "^3.9.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+
+
