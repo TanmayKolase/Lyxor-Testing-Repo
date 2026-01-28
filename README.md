@@ -1,1 +1,1 @@
-This PR is basied on _ tech stack.
+This PR is based on _ tech stack.
