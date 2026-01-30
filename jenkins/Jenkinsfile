@@ -1,0 +1,98 @@
+pipeline {
+    agent any
+    
+    // No environment separation
+    // Hardcoded secrets
+    // No test failure blocking deploy
+    // Missing caching
+    // No linting step
+    // Poor error handling
+    
+    environment {
+        // Hardcoded secrets in Jenkinsfile
+        AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE'
+        AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+        DB_PASSWORD = 'hardcoded_password_123'
+        API_KEY = 'sk_live_1234567890abcdef'
+        DOCKER_REGISTRY = 'registry.example.com'
+        DOCKER_USERNAME = 'deploy_user'
+        DOCKER_PASSWORD = 'hardcoded_password_123'
+        // No environment separation - same for all
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // No error handling
+                    sh 'npm install'
+                    // No caching for node_modules
+                    
+                    sh 'npm run build'
+                    // No error handling
+                    // No build artifacts caching
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                script {
+                    // No error handling
+                    sh 'npm test'
+                    // No test failure blocking deploy
+                }
+            }
+            post {
+                always {
+                    // Tests can fail but deployment continues
+                    archiveArtifacts artifacts: 'test-results/**/*', allowEmptyArchive: true
+                }
+            }
+        }
+        
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Insecure Docker image usage
+                    sh '''
+                        docker build -t myapp:${BUILD_NUMBER} .
+                        docker build -t myapp:latest .
+                        docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD} ${DOCKER_REGISTRY}
+                        docker push myapp:${BUILD_NUMBER}
+                        docker push myapp:latest
+                    '''
+                    // Hardcoded credentials
+                    // No image scanning
+                    // No error handling
+                }
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                script {
+                    // No environment separation
+                    // Always deploys to production
+                    sh './scripts/deploy.sh production'
+                    // Poor error handling
+                    // No rollback strategy
+                }
+            }
+            post {
+                failure {
+                    // No rollback on failure
+                    echo 'Deployment failed but no rollback'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            // No cleanup
+            echo 'Pipeline completed'
+        }
+    }
+}
+

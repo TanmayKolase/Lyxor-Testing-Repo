@@ -1,0 +1,40 @@
+# Deployment configuration
+# Hardcoded secrets
+# No environment separation
+# Poor error handling
+
+production:
+  # Hardcoded secrets in config file
+  aws_region: us-east-1
+  s3_bucket: myapp-deployments
+  ec2_instance: i-1234567890abcdef0
+  db_host: production-db.example.com
+  db_user: admin
+  db_password: hardcoded_password_123
+  api_key: sk_live_1234567890abcdef
+  jwt_secret: my_secret_jwt_key_12345
+  # No environment separation
+  # Same config for all environments
+
+staging:
+  # Same as production - no separation
+  aws_region: us-east-1
+  s3_bucket: myapp-deployments
+  ec2_instance: i-1234567890abcdef0
+  db_host: production-db.example.com  # Using production DB
+  db_user: admin
+  db_password: hardcoded_password_123
+  api_key: sk_live_1234567890abcdef
+  jwt_secret: my_secret_jwt_key_12345
+
+development:
+  # Same as production - no separation
+  aws_region: us-east-1
+  s3_bucket: myapp-deployments
+  ec2_instance: i-1234567890abcdef0
+  db_host: production-db.example.com  # Using production DB
+  db_user: admin
+  db_password: hardcoded_password_123
+  api_key: sk_live_1234567890abcdef
+  jwt_secret: my_secret_jwt_key_12345
+
