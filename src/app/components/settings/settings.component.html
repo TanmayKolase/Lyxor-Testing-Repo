@@ -1,0 +1,13 @@
+<div class="settings-container">
+  <h2>User Settings</h2>
+  
+  <div *ngIf="loading" class="loading-message">
+    Loading settings...
+  </div>
+
+  <div *ngIf="!loading && settings" class="settings-content">
+    <app-profile-form [user]="settings.user"></app-profile-form>
+    <app-preferences-form [preferences]="settings.preferences"></app-preferences-form>
+  </div>
+</div>
+

@@ -1,0 +1,65 @@
+<div class="preferences-form-container">
+  <h3>Preferences</h3>
+  
+  <form [formGroup]="preferencesForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Theme</label>
+      <select formControlName="theme">
+        <!-- Missing accessibility label -->
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input
+          type="checkbox"
+          formControlName="notifications"
+          <!-- Missing accessibility label -->
+        />
+        Enable Notifications
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input
+          type="checkbox"
+          formControlName="emailNotifications"
+          <!-- Missing accessibility label -->
+        />
+        Email Notifications
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>Language</label>
+      <select formControlName="language">
+        <!-- Missing accessibility label -->
+        <option value="en">English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Timezone</label>
+      <input
+        type="text"
+        formControlName="timezone"
+        placeholder="Enter timezone (e.g., UTC, EST)"
+        <!-- Missing accessibility label -->
+      />
+      <!-- No validation - can be empty or invalid -->
+    </div>
+
+    <button type="submit" class="submit-button">
+      <!-- No disabled state during submit -->
+      <!-- Missing aria-label -->
+      {{ submitting ? 'Saving...' : 'Save Preferences' }}
+    </button>
+  </form>
+</div>
+
