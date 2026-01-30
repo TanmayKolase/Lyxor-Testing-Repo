@@ -1,0 +1,55 @@
+<div class="profile-form-container">
+  <h3>Profile Information</h3>
+  
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input
+        type="text"
+        formControlName="name"
+        placeholder="Enter your full name"
+        <!-- Missing accessibility label (aria-label) -->
+      />
+      <!-- No validation message -->
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        <!-- Missing accessibility label -->
+      />
+      <!-- No email format validation message -->
+    </div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input
+        type="tel"
+        formControlName="phone"
+        placeholder="Enter your phone number"
+        <!-- Missing accessibility label -->
+      />
+      <!-- No phone format validation message -->
+    </div>
+
+    <div class="form-group">
+      <label>Bio</label>
+      <textarea
+        formControlName="bio"
+        placeholder="Tell us about yourself"
+        rows="4"
+        <!-- Missing accessibility label -->
+      ></textarea>
+    </div>
+
+    <button type="submit" class="submit-button">
+      <!-- No disabled state during submit -->
+      <!-- Missing aria-label -->
+      {{ submitting ? 'Saving...' : 'Save Profile' }}
+    </button>
+  </form>
+</div>
+
