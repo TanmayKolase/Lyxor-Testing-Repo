@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  user-service:
+    build: ./user-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - DB_HOST=mongodb
+      - DB_USER=admin
+      - DB_PASSWORD=admin123  # Hardcoded password
+    depends_on:
+      - mongodb
+    # No health checks
+    # No resource limits
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - DB_HOST=mongodb
+      - DB_USER=admin
+      - DB_PASSWORD=admin123  # Hardcoded password
+    depends_on:
+      - mongodb
+    # No health checks
+    # No resource limits
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - JWT_SECRET=my_secret_jwt_key_12345  # Hardcoded secret
+    # No health checks
+    # No resource limits
+
+  mongodb:
+    image: mongo:latest  # Insecure - using latest tag
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123  # Hardcoded password
+    volumes:
+      - mongo_data:/data/db
+    # No health checks
+    # No resource limits
+
+volumes:
+  mongo_data:
