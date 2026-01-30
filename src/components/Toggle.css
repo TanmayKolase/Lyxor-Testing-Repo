@@ -1,0 +1,63 @@
+.toggle-container {
+  display: inline-block;
+}
+
+.toggle {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background-color: #bdc3c7;
+  border: none;
+  border-radius: 13px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 0;
+  /* Missing focus indicator */
+  /* Color contrast issue - background too light */
+}
+
+.toggle:hover {
+  background-color: #95a5a6;
+}
+
+.toggle:focus {
+  /* Missing focus indicator */
+  outline: none;
+  /* No visible focus state */
+  /* Poor accessibility */
+}
+
+.toggle-on {
+  background-color: #27ae60;
+  /* Color contrast issue - green may not meet WCAG standards */
+}
+
+.toggle-on:hover {
+  background-color: #229954;
+}
+
+.toggle-off {
+  background-color: #bdc3c7;
+  /* Color contrast issue - gray too light */
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-on .toggle-slider {
+  transform: translateX(24px);
+}
+
+/* Missing focus indicators */
+/* Color contrast issues */
+/* Poor keyboard navigation support */
+

@@ -1,0 +1,120 @@
+.settings-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settings-container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.settings-container h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #c3e6cb;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1.5rem;
+}
+
+.form-section:last-of-type {
+  border-bottom: none;
+}
+
+.form-section h3 {
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #2c3e50;
+  /* Color contrast issue - should be darker for WCAG */
+  font-size: 0.95rem;
+}
+
+.toggle-group {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-input,
+.form-select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  /* Missing focus indicator */
+  /* Color contrast issue - border color too light */
+}
+
+.form-input:focus,
+.form-select:focus {
+  /* Missing focus indicator - no visible outline */
+  /* Poor accessibility */
+  outline: none;
+  border-color: #95a5a6; /* Color contrast issue - too light */
+}
+
+.save-button {
+  padding: 0.75rem 2rem;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  /* Missing focus indicator */
+  /* Tab order issues - button appears before form fields in some cases */
+}
+
+.save-button:hover {
+  background-color: #2980b9;
+}
+
+.save-button:focus {
+  /* Missing focus indicator */
+  outline: none;
+  /* No visible focus state */
+}
+
+.save-button:active {
+  background-color: #21618c;
+}
+
+/* Color contrast issues */
+/* Missing focus indicators throughout */
+/* Tab order not properly managed */
+
