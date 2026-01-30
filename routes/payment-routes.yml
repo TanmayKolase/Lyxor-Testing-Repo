@@ -1,0 +1,45 @@
+# Payment Service Routes Configuration
+# Hardcoded service URLs
+# Missing authentication forwarding
+# No rate limiting
+# Missing request timeout handling
+
+routes:
+  # Payment routes
+  - name: process-payment
+    service: payment-service
+    path: /api/payments
+    method: POST
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: get-payment
+    service: payment-service
+    path: /api/payments/{payment_id}
+    method: GET
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: refund-payment
+    service: payment-service
+    path: /api/payments/{payment_id}/refund
+    method: POST
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  # Dead or unused route
+  - name: payment-methods
+    service: payment-service
+    path: /api/payments/methods
+    method: GET
+    # Unused route - not accessible
+
+# Service definition - hardcoded URL
+services:
+  payment-service:
+    url: http://localhost:3003
+    # Hardcoded URL - should use environment variables
+    # Missing timeout configuration
+    # No retry mechanism
+    # No health check configuration
+

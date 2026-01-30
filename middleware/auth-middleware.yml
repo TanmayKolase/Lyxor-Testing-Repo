@@ -1,0 +1,64 @@
+# Authentication Middleware Configuration
+# Missing authentication forwarding for some routes
+# Hardcoded configuration values
+# No environment-based configuration
+
+plugins:
+  # JWT authentication - only applied to some routes
+  - name: jwt
+    route: user-profile
+    config:
+      # Missing authentication forwarding
+      # Hardcoded secret
+      secret_is_base64: false
+      key_claim_name: iss
+      uri_param_names:
+        - token
+      cookie_names:
+        - jwt
+      header_names:
+        - authorization
+      claims_to_verify:
+        - exp
+      # No environment-based configuration
+      
+  - name: jwt
+    route: payment-api
+    config:
+      # Missing authentication forwarding
+      secret_is_base64: false
+      key_claim_name: iss
+      # Hardcoded configuration
+      
+  # Note: user-api, order-api, notification-api routes missing JWT plugin
+  # Missing authentication forwarding for most routes
+  
+  # API Key authentication - not used
+  - name: key-auth
+    route: admin-api
+    config:
+      # Dead or unused route
+      key_names:
+        - apikey
+        - x-api-key
+      hide_credentials: false
+      # Insecure - credentials not hidden
+      
+  # OAuth2 - configured but not used
+  - name: oauth2
+    config:
+      # Dead configuration - not applied to any route
+      scopes:
+        - read
+        - write
+      mandatory_scope: false
+      token_expiration: 3600
+      # Unused plugin configuration
+
+# Authentication forwarding configuration
+# Missing for most routes
+auth_forwarding:
+  enabled: false  # Hardcoded - should be configurable
+  header_name: X-User-Id
+  # Missing authentication forwarding implementation
+

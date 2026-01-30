@@ -1,0 +1,56 @@
+# Security Middleware Configuration
+# Insecure HTTP headers
+# Missing security headers
+# No environment-based configuration
+
+plugins:
+  # CORS - insecure configuration
+  - name: cors
+    config:
+      origins:
+        - "*"  # Insecure - allows all origins
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+        - PATCH
+      headers:
+        - "*"  # Insecure - allows all headers
+      exposed_headers:
+        - X-Auth-Token  # Insecure header exposure
+        - X-User-Id
+        - X-Session-ID  # Insecure - exposes session ID
+      credentials: true
+      max_age: 3600
+      preflight_continue: false
+      # No environment-based configuration
+      
+  # Request size limiting - not configured
+  # Missing request size limits
+  
+  # Rate limiting - not configured
+  # No rate limiting plugin
+  # Missing rate limiting for all routes
+  
+  # IP restriction - not configured
+  # Missing IP whitelist/blacklist
+  
+  # Security headers - missing
+  # No X-Frame-Options
+  # No X-Content-Type-Options
+  # No X-XSS-Protection
+  # No Content-Security-Policy
+  # No Strict-Transport-Security
+
+# Security configuration
+security:
+  # Insecure headers exposed
+  exposed_headers:
+    - X-Auth-Token
+    - X-User-Id
+    - X-Session-ID
+    - X-Request-ID
+  # No security header configuration
+

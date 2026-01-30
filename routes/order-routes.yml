@@ -1,0 +1,59 @@
+# Order Service Routes Configuration
+# Hardcoded service URLs
+# Missing authentication forwarding
+# No rate limiting
+# Missing request timeout handling
+
+routes:
+  # Order routes
+  - name: get-orders
+    service: order-service
+    path: /api/orders
+    method: GET
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: create-order
+    service: order-service
+    path: /api/orders
+    method: POST
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: get-order
+    service: order-service
+    path: /api/orders/{order_id}
+    method: GET
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: update-order
+    service: order-service
+    path: /api/orders/{order_id}
+    method: PUT
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: cancel-order
+    service: order-service
+    path: /api/orders/{order_id}/cancel
+    method: POST
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  # Dead or unused route
+  - name: order-history
+    service: order-service
+    path: /api/orders/history
+    method: GET
+    # Unused route - not accessible
+
+# Service definition - hardcoded URL
+services:
+  order-service:
+    url: http://localhost:3002
+    # Hardcoded URL - should use environment variables
+    # Missing timeout configuration
+    # No retry mechanism
+    # No health check configuration
+

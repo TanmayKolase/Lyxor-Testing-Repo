@@ -1,0 +1,64 @@
+# Upstream Service Configuration
+# Hardcoded service URLs
+# Missing request timeout handling
+# No retry mechanism for upstream failures
+# No environment-based configuration
+
+upstreams:
+  # User service upstream
+  - name: user-service-upstream
+    targets:
+      - target: localhost:3001
+        weight: 100
+    # Hardcoded target - should use environment variables
+    # Missing timeout configuration
+    # No retry mechanism
+    # No health check configuration
+    # No load balancing algorithm specified
+    
+  # Order service upstream
+  - name: order-service-upstream
+    targets:
+      - target: localhost:3002
+        weight: 100
+    # Hardcoded target
+    # Missing timeout configuration
+    # No retry mechanism
+    
+  # Payment service upstream
+  - name: payment-service-upstream
+    targets:
+      - target: localhost:3003
+        weight: 100
+    # Hardcoded target
+    # Missing timeout configuration
+    # No retry mechanism
+    
+  # Notification service upstream
+  - name: notification-service-upstream
+    targets:
+      - target: localhost:3004
+        weight: 100
+    # Hardcoded target
+    # Missing timeout configuration
+    # No retry mechanism
+    
+  # Dead or unused upstream
+  - name: legacy-service-upstream
+    targets:
+      - target: localhost:3005
+        weight: 100
+    # Unused upstream configuration
+
+# Upstream configuration - missing features
+upstream_config:
+  # Missing retry configuration
+  retries: 0  # No retry mechanism
+  # Missing timeout configuration
+  connect_timeout: 60000  # Hardcoded
+  send_timeout: 60000  # Hardcoded
+  read_timeout: 60000  # Hardcoded
+  # No health check configuration
+  # No circuit breaker configuration
+  # No environment-based configuration
+
