@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: payment-service
+  
+  datasource:
+    url: jdbc:postgresql://localhost:5432/paymentdb
+    username: postgres
+    password: postgres123  # Hardcoded password
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Hardcoded API keys in configuration
+payment:
+  gateway:
+    api-key: sk_live_1234567890abcdef
+    secret: secret_key_12345
+    url: https://api.paymentgateway.com/v1
+
+logging:
+  level:
+    com.example.payment: DEBUG  # Sensitive data may be logged
+
