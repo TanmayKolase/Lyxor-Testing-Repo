@@ -1,0 +1,69 @@
+# User Service Routes Configuration
+# Hardcoded service URLs
+# Missing authentication forwarding
+# No rate limiting
+# Missing request timeout handling
+
+routes:
+  # User CRUD routes
+  - name: get-users
+    service: user-service
+    path: /api/users
+    method: GET
+    # Missing authentication forwarding
+    # No rate limiting
+    # Hardcoded service reference
+    
+  - name: create-user
+    service: user-service
+    path: /api/users
+    method: POST
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: update-user
+    service: user-service
+    path: /api/users/{user_id}
+    method: PUT
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: delete-user
+    service: user-service
+    path: /api/users/{user_id}
+    method: DELETE
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  # User profile routes
+  - name: get-profile
+    service: user-service
+    path: /api/users/profile
+    method: GET
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  - name: update-profile
+    service: user-service
+    path: /api/users/profile
+    method: PUT
+    # Missing authentication forwarding
+    # No rate limiting
+    
+  # Dead or unused route
+  - name: user-search
+    service: user-service
+    path: /api/users/search
+    method: GET
+    # Unused route - not accessible
+    # Dead configuration
+
+# Service definition - hardcoded URL
+services:
+  user-service:
+    url: http://localhost:3001
+    # Hardcoded URL - should use environment variables
+    # Missing timeout configuration
+    # No retry mechanism
+    # No health check configuration
+

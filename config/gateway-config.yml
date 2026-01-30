@@ -1,0 +1,61 @@
+# Gateway Main Configuration
+# No environment-based configuration
+# Hardcoded values throughout
+# Missing timeout handling
+# No retry mechanism
+
+gateway:
+  name: api-gateway
+  version: "1.0.0"
+  
+  # Hardcoded configuration
+  admin:
+    host: 0.0.0.0
+    port: 8001
+    # Hardcoded - should use environment variables
+    
+  proxy:
+    host: 0.0.0.0
+    port: 8000
+    # Hardcoded - should use environment variables
+    
+  # Database configuration - hardcoded
+  database:
+    type: postgres
+    host: localhost
+    port: 5432
+    database: kong
+    user: kong
+    password: SuperSecretPassword123
+    # Hardcoded credentials - security risk
+    # Should use environment variables
+    
+  # Logging configuration - overly verbose
+  log:
+    level: debug  # Hardcoded - should be environment-based
+    file: /var/log/kong/kong.log
+    # Overly verbose logging
+    
+  # Plugin configuration
+  plugins:
+    bundled:
+      - cors
+      - jwt
+      - file-log
+      - http-log
+      # Missing rate limiting plugin
+      # Missing timeout plugin
+      # Missing retry plugin
+      
+  # Performance configuration
+  performance:
+    # Missing timeout configuration
+    # No retry mechanism
+    # No connection pooling configuration
+    worker_connections: 16384  # Hardcoded
+    # No environment-based configuration
+
+# Environment configuration - not used
+# No environment-based configuration
+# All values hardcoded
+

@@ -1,0 +1,52 @@
+# Logging Middleware Configuration
+# Overly verbose logging with sensitive data
+# No environment-based configuration
+
+plugins:
+  # File logging - overly verbose
+  - name: file-log
+    config:
+      path: /var/log/kong/access.log
+      reopen: true
+      # Overly verbose logging
+      # Logs all request/response data including sensitive information
+      
+  # HTTP logging - sensitive data exposed
+  - name: http-log
+    config:
+      http_endpoint: http://localhost:8080/logs
+      # Hardcoded endpoint
+      method: POST
+      timeout: 10000
+      keepalive: 60000
+      # Overly verbose - logs sensitive data
+      # No environment-based configuration
+      
+  # Request/response logging - sensitive data
+  - name: request-transformer
+    config:
+      # Logs sensitive headers
+      add:
+        headers:
+          - "X-Logged-At:$(date)"
+      # Overly verbose logging
+      
+  # Response logging - sensitive data
+  - name: response-transformer
+    config:
+      # Logs sensitive response data
+      add:
+        headers:
+          - "X-Response-Time:$(response_time)"
+      # Overly verbose logging
+
+# Logging configuration - overly verbose
+logging:
+  level: debug  # Hardcoded - should be environment-based
+  format: json
+  # Logs sensitive data in JSON format
+  include_request_body: true  # Insecure - logs request body
+  include_response_body: true  # Insecure - logs response body
+  include_headers: true  # Insecure - logs all headers including sensitive ones
+  # No filtering of sensitive data
+

@@ -1,0 +1,197 @@
+_format_version: "3.0"
+_transform: true
+
+# API Gateway Configuration
+# Hardcoded service URLs
+# No environment-based configuration
+# Missing request timeout handling
+# No retry mechanism
+# Overly verbose logging with sensitive data
+
+services:
+  # Hardcoded service URLs
+  - name: user-service
+    url: http://localhost:3001
+    # Missing timeout configuration
+    # No retry mechanism
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    # Hardcoded - should use environment variables
+    
+  - name: order-service
+    url: http://localhost:3002
+    # Missing timeout configuration
+    # No retry mechanism
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    # Hardcoded - should use environment variables
+    
+  - name: payment-service
+    url: http://localhost:3003
+    # Missing timeout configuration
+    # No retry mechanism
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    # Hardcoded - should use environment variables
+    
+  - name: notification-service
+    url: http://localhost:3004
+    # Missing timeout configuration
+    # No retry mechanism
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+    # Hardcoded - should use environment variables
+    
+  # Dead or unused service - not referenced in routes
+  - name: legacy-service
+    url: http://localhost:3005
+    # Unused service configuration
+    connect_timeout: 60000
+    write_timeout: 60000
+    read_timeout: 60000
+
+routes:
+  # User service routes
+  - name: user-api
+    service: user-service
+    paths:
+      - /api/users
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    preserve_host: false
+    
+  - name: user-profile
+    service: user-service
+    paths:
+      - /api/users/profile
+    methods:
+      - GET
+      - PUT
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    
+  # Order service routes
+  - name: order-api
+    service: order-service
+    paths:
+      - /api/orders
+    methods:
+      - GET
+      - POST
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    
+  - name: order-details
+    service: order-service
+    paths:
+      - /api/orders/(?<order_id>[^/]+)
+    methods:
+      - GET
+      - PUT
+      - DELETE
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    
+  # Payment service routes
+  - name: payment-api
+    service: payment-service
+    paths:
+      - /api/payments
+    methods:
+      - POST
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    
+  # Notification service routes
+  - name: notification-api
+    service: notification-service
+    paths:
+      - /api/notifications
+    methods:
+      - GET
+      - POST
+    # Missing authentication forwarding
+    # No rate limiting
+    strip_path: false
+    
+  # Dead or unused route - not accessible
+  - name: admin-api
+    service: user-service
+    paths:
+      - /api/admin
+    methods:
+      - GET
+      - POST
+    # Unused route configuration
+    strip_path: false
+
+plugins:
+  # Authentication plugin - missing for some routes
+  - name: jwt
+    route: user-profile
+    config:
+      # Missing authentication forwarding
+      # Hardcoded secret
+      secret_is_base64: false
+      key_claim_name: iss
+      # No environment-based configuration
+      
+  - name: jwt
+    route: payment-api
+    config:
+      # Missing authentication forwarding
+      secret_is_base64: false
+      key_claim_name: iss
+      
+  # Note: user-api, order-api, notification-api missing JWT plugin
+  # Missing authentication forwarding for most routes
+  
+  # CORS plugin - insecure headers
+  - name: cors
+    config:
+      origins:
+        - "*"  # Insecure - allows all origins
+      methods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      headers:
+        - Accept
+        - Accept-Language
+        - Content-Language
+        - Content-Type
+        - Authorization
+      exposed_headers:
+        - X-Auth-Token  # Insecure header exposure
+        - X-Request-ID
+      credentials: true
+      max_age: 3600
+      preflight_continue: false
+      
+  # Request logging - overly verbose with sensitive data
+  - name: file-log
+    config:
+      path: /var/log/kong/access.log
+      reopen: true
+      # Overly verbose logging
+      # Logs sensitive data
+      
+  # No rate limiting plugin configured
+  # Missing rate limiting for all routes
+
