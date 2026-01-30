@@ -1,0 +1,86 @@
+# GitLab CI/CD Pipeline
+# Secrets hardcoded in YAML
+# No environment separation
+# No test failure blocking deploy
+# Missing caching
+# No linting step
+# Poor error handling
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  # Hardcoded secrets in variables
+  DOCKER_REGISTRY: "registry.example.com"
+  DOCKER_USERNAME: "deploy_user"
+  DOCKER_PASSWORD: "hardcoded_password_123"
+  AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"
+  AWS_SECRET_ACCESS_KEY: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+  DB_PASSWORD: "production_db_password"
+  API_KEY: "sk_live_1234567890abcdef"
+  # No environment separation - same variables for all environments
+
+build:
+  stage: build
+  image: docker:latest  # Insecure - using latest tag
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
+    # Hardcoded credentials
+    # No error handling
+  script:
+    - docker build -t $DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA .
+    - docker build -t $DOCKER_REGISTRY/myapp:latest .
+    - docker push $DOCKER_REGISTRY/myapp:$CI_COMMIT_SHA
+    - docker push $DOCKER_REGISTRY/myapp:latest
+    # Insecure Docker image usage - no scanning
+    # No caching for Docker layers
+  # No error handling
+  # No artifacts caching
+
+test:
+  stage: test
+  image: node:18  # Insecure - using specific version but no scanning
+  before_script:
+    - npm install
+    # No caching for node_modules
+    # No error handling
+  script:
+    - npm test
+    # No test failure blocking deploy
+    # Tests can fail but deployment continues
+  allow_failure: true  # Allows test failures
+  # No linting step
+  artifacts:
+    paths:
+      - test-results/
+    expire_in: 1 week
+  # Poor error handling
+
+deploy:
+  stage: deploy
+  image: alpine:latest  # Insecure - using latest tag
+  before_script:
+    - apk add --no-cache curl bash
+    # No error handling
+  script:
+    - |
+      # Hardcoded secrets
+      export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
+      export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
+      export DB_PASSWORD="$DB_PASSWORD"
+      
+      # No environment separation
+      # Deploys to production regardless of branch
+      ./scripts/deploy.sh production
+    # Poor error handling
+    # No rollback strategy
+  only:
+    - main
+    - develop
+  # No environment-specific configurations
+  # No rollback on failure
+

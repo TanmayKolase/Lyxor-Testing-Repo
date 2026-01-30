@@ -1,0 +1,45 @@
+version: '3.8'
+
+# No environment separation
+# Hardcoded secrets
+# Insecure configurations
+
+services:
+  app:
+    build: .
+    image: myapp:latest  # Using latest tag - insecure
+    ports:
+      - "3000:3000"
+    environment:
+      # Hardcoded secrets in docker-compose
+      - DB_HOST=production-db.example.com
+      - DB_USER=admin
+      - DB_PASSWORD=hardcoded_password_123
+      - API_KEY=sk_live_1234567890abcdef
+      - JWT_SECRET=my_secret_jwt_key_12345
+      # No environment separation
+      # Same config for all environments
+    volumes:
+      - ./:/app
+      # No volume security
+    # No health check
+    # No restart policy
+    # No resource limits
+
+  db:
+    image: postgres:latest  # Using latest tag - insecure
+    environment:
+      # Hardcoded secrets
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=hardcoded_db_password
+      - POSTGRES_DB=myapp
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      # No volume security
+    # No health check
+    # No resource limits
+
+volumes:
+  db_data:
+    # No volume security configuration
+
